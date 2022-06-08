@@ -21,33 +21,52 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val personItemList = listOf(
-                PersonItem("AAA"),
-                PersonItem("BBB"),
-                PersonItem("CCC"),
-                PersonItem("DDD"),
-                PersonItem("EEE"),
-                PersonItem("FFF"),
-                PersonItem("GGG"),
-                PersonItem("HHH"),
-                PersonItem("III"),
-                PersonItem("JJJ")
+        val personHorizontalItemList = listOf(
+                PersonItem(PersonItem.ViewType.Horizontal, "AAA"),
+                PersonItem(PersonItem.ViewType.Horizontal, "BBB"),
+                PersonItem(PersonItem.ViewType.Horizontal, "CCC"),
+                PersonItem(PersonItem.ViewType.Horizontal, "DDD"),
+                PersonItem(PersonItem.ViewType.Horizontal, "EEE"),
+                PersonItem(PersonItem.ViewType.Horizontal, "FFF"),
+                PersonItem(PersonItem.ViewType.Horizontal, "GGG"),
+                PersonItem(PersonItem.ViewType.Horizontal, "HHH"),
+                PersonItem(PersonItem.ViewType.Horizontal, "III"),
+                PersonItem(PersonItem.ViewType.Horizontal, "JJJ")
+        )
+
+        val personVerticalItemList = listOf(
+                PersonItem(PersonItem.ViewType.Vertical, "KKK"),
+                PersonItem(PersonItem.ViewType.Vertical, "LLL"),
+                PersonItem(PersonItem.ViewType.Vertical, "MMM"),
+                PersonItem(PersonItem.ViewType.Vertical, "NNN"),
+                PersonItem(PersonItem.ViewType.Vertical, "OOO"),
+                PersonItem(PersonItem.ViewType.Vertical, "PPP"),
+                PersonItem(PersonItem.ViewType.Vertical, "QQQ"),
+                PersonItem(PersonItem.ViewType.Vertical, "RRR"),
+                PersonItem(PersonItem.ViewType.Vertical, "SSS"),
+                PersonItem(PersonItem.ViewType.Vertical, "TTT")
         )
 
         binding.run {
+            recyclerViewHorizontal.run {
+                adapter = PersonAdapter().apply {
+                    submitList(personHorizontalItemList)
+                }
+            }
+
             tabLayout.run {
-                personItemList.forEach {
+                personVerticalItemList.forEach {
                     addTab(tabLayout.newTab().setText(it.name))
                 }
                 (getChildAt(0) as LinearLayout).children.forEachIndexed { tabPosition: Int, tab: View ->
                     tab.setOnClickListener {
                         shouldSelectTab = false
-                        recyclerView.smoothScrollToPosition(tabPosition)
+                        recyclerViewVertical.smoothScrollToPosition(tabPosition)
                     }
                 }
             }
 
-            recyclerView.run {
+            recyclerViewVertical.run {
                 layoutManager = object : LinearLayoutManager(context) {
                     private val smoothScroller = object : LinearSmoothScroller(context) {
                         override fun calculateDtToFit(viewStart: Int, viewEnd: Int, boxStart: Int, boxEnd: Int, snapPreference: Int): Int {
@@ -84,7 +103,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 })
                 adapter = PersonAdapter().apply {
-                    submitList(personItemList)
+                    submitList(personVerticalItemList)
                 }
             }
         }

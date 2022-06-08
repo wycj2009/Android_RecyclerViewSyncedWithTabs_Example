@@ -7,6 +7,8 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2814814814814815" />
         <entry key="app/src/main/res/layout/item_card.xml" value="0.35260416666666666" />
         <entry key="app/src/main/res/layout/item_person.xml" value="0.2814814814814815" />
+        <entry key="app/src/main/res/layout/item_person_horizontal.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/item_person_vertical.xml" value="0.37604166666666666" />
       </map>
     </option>
   </component>
